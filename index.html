@@ -88,6 +88,54 @@
         .animate-blink {
             animation: blink 1.5s infinite;
         }
+
+        .love {
+            position: absolute;
+            color: white;
+            font-size: 1.5rem;
+            animation: float-up 1s ease-out forwards;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-50px) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        @keyframes slowHeartbeat {
+            0% {
+                transform: scale(1) rotate(-45deg);
+            }
+
+            30% {
+                transform: scale(1.1) rotate(-45deg);
+            }
+
+            60% {
+                transform: scale(1) rotate(-45deg);
+            }
+
+            100% {
+                transform: scale(1.1) rotate(-45deg);
+            }
+        }
+
+        @keyframes zoomOut {
+            0% {
+                transform: scale(1.1) rotate(-45deg);
+            }
+
+            100% {
+                transform: scale(1.5) rotate(-45deg);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 
@@ -140,18 +188,31 @@
 
     <!-- Box 6 -->
     <div id="box-6" style="font-family: 'Nataly', sans-serif;"
-        class="w-64 flex flex-col items-center p-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 invisible transition-opacity duration-500">
-        <p id="countdown" class="mt-2 text-center text-pink-300 text-9xl">18</p>
+        class="w-64 h-64 flex items-center justify-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 invisible transition-opacity duration-500">
+
+        <!-- Lingkaran SVG -->
+        <svg width="160" height="170" viewBox="0 0 100 100" class="absolute">
+            <!-- Lingkaran latar belakang -->
+            <circle cx="50" cy="45" r="45" fill="none" stroke="#FFE4F3" stroke-width="6" />
+
+            <!-- Lingkaran animasi -->
+            <circle id="circle" cx="50" cy="45 " r="45" fill="none" stroke="#F9AAD5" stroke-width="6" stroke-dasharray="283"
+                stroke-dashoffset="283" stroke-linecap="round"
+                style="transition: stroke-dashoffset 0.9s ease-in-out;" />
+        </svg>
+
+        <!-- Angka Countdown -->
+        <p id="countdown" class="absolute text-center text-pink-300 text-9xl">18</p>
     </div>
 
     <!-- Box 7 (Box Maaf) -->
     <div id="box-7" style="font-family: 'Nataly', sans-serif;"
         class="w-64 flex flex-col items-center p-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 invisible transition-opacity duration-500">
-        <div id="heart" class="w-24 h-24 bg-pink-300 relative rotate-[-45deg] animate-pulse-custom cursor-pointer">
+        <div id="heart-2" class="w-24 h-24 bg-pink-300 relative rotate-[-45deg] animate-pulse-custom cursor-pointer">
             <div class="w-24 h-24 bg-pink-300 rounded-full absolute top-[-50%] left-0"></div>
             <div class="w-24 h-24 bg-pink-300 rounded-full absolute top-0 left-[50%]"></div>
             <!-- Tulisan "Touch" di tengah love -->
-            <span id="click-text"
+            <span id="click-text-2"
                 class="absolute top-1/4 left-1/2 transform -translate-x-1/4 -translate-y-1/5 text-white text-3xl rotate-45 animate-blink"
                 style="font-family: 'Rubik', sans-serif;">♬</span>
         </div>
@@ -175,12 +236,33 @@
             $('#heart').on('click', function () {
                 document.getElementById('pop1').play();
                 document.getElementById('backsound1').play();
-                $(this).fadeOut(500, function () {
-                    $(this).remove();
-                    showBox('#box');
-                    showBtn('#footer');
-                    $('#footer').text('Lanjut');
+
+                // Hapus class animated-blink dari #click-text
+                $('#click-text').removeClass('animate-blink');
+                $('#click-text').removeClass('text-lg');
+                $('#click-text').addClass('text-3xl');
+
+                // Ubah teks di dalam #click-text menjadi "Hai"
+                $('#click-text').text('♬');
+
+                // Efek berdebar lambat
+                $(this).css({
+                    'animation': 'slowHeartbeat 1.5s ease-in-out'
                 });
+
+                // Setelah efek berdebar selesai, lakukan zoom dan fade out
+                setTimeout(() => {
+                    $(this).css({
+                        'animation': 'zoomOut 0.5s ease-in-out forwards'
+                    });
+
+                    setTimeout(() => {
+                        $(this).remove();
+                        showBox('#box');
+                        showBtn('#footer');
+                        $('#footer').text('Lanjut');
+                    }, 500); // Tunggu efek zoomOut selesai sebelum menghapus elemen
+                }, 1500); // Mulai zoom setelah efek berdebar selesai
             });
 
             // Saat footer diklik
@@ -211,7 +293,7 @@
                         document.getElementById('pop2').play();
                         hideBox('#box-4');
                         showBox('#box-5');
-                        $(this).text('Terakhir');
+                        $(this).text('Sekali Lagi');
                         currentStep++;
                     } else if (currentStep === 5) {
                         document.getElementById('pop2').play();
@@ -256,10 +338,19 @@
             function startCountdown() {
                 let count = 18;
                 const countdownElement = document.getElementById('countdown');
+                const circle = document.getElementById('circle');
                 const backsound = document.getElementById('backsound3');
+
+                // Total panjang lingkaran (2 * π * r)
+                const circleLength = 2 * Math.PI * 45; // 283
+                circle.style.strokeDashoffset = circleLength; // Mulai dari penuh
 
                 const countdownInterval = setInterval(() => {
                     countdownElement.textContent = count;
+
+                    // Animasi lingkaran
+                    let progress = (count / 18) * circleLength;
+                    circle.style.strokeDashoffset = progress;
 
                     // Saat hitungan mencapai 8, mulai memutar backsound dalam keadaan mute
                     if (count === 8) {
@@ -275,15 +366,34 @@
                     count--;
 
                     if (count < 0) {
+                        clearInterval(countdownInterval); // Matikan detik jam
+                        countdownElement.textContent = ""; // Kosongkan angka countdown
                         document.getElementById('count').pause();
-                        clearInterval(countdownInterval);
                         document.getElementById('pop2').play();
                         hideBox('#box-6');
                         showBox('#box-7'); // Tampilkan box maaf
                     }
                 }, 900); // Setiap 0.9 detik
             }
+        });
 
+        document.getElementById("heart-2").addEventListener("click", function (event) {
+            for (let i = 0; i < 10; i++) { // Jumlah love kecil
+                let love = document.createElement("span");
+                love.innerHTML = "♬";
+                love.classList.add("love");
+                document.body.appendChild(love);
+
+                let x = event.clientX + (Math.random() * 100 - 50);
+                let y = event.clientY + (Math.random() * 100 - 50);
+
+                love.style.left = `${x}px`;
+                love.style.top = `${y}px`;
+
+                setTimeout(() => {
+                    love.remove();
+                }, 1000);
+            }
         });
     </script>
 </body>
