@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Prita | 21</title>
+    <link href="https://fonts.cdnfonts.com/css/nataly" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/rubik" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="icon" href="image/18.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Rubik', sans-serif;
+            background-image: url('image/s.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Animasi berdenyut untuk love */
+        @keyframes pulse {
+            0% {
+                transform: rotate(-45deg) scale(1);
+            }
+
+            50% {
+                transform: rotate(-45deg) scale(1.1);
+            }
+
+            100% {
+                transform: rotate(-45deg) scale(1);
+            }
+        }
+
+        .animate-pulse-custom {
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        /* Animasi zoom in */
+        @keyframes zoomIn {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .animate-zoom-in {
+            animation: zoomIn 0.8s ease-in-out forwards;
+        }
+
+        /* Animasi zoom in untuk footer */
+        @keyframes zoomInFooter {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.2);
+            }
+        }
+
+        .animate-zoom-in-footer {
+            animation: zoomInFooter 0.3s ease-in forwards;
+        }
+
+        /* Animasi berkedip */
+        @keyframes blink {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .animate-blink {
+            animation: blink 1.5s infinite;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col justify-center items-center h-screen relative"
+    style="background-image: url('image/background.gif'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <!-- Love -->
+    <div id="heart" class="w-24 h-24 bg-pink-300 relative rotate-[-45deg] animate-pulse-custom cursor-pointer">
+        <div class="w-24 h-24 bg-pink-300 rounded-full absolute top-[-50%] left-0"></div>
+        <div class="w-24 h-24 bg-pink-300 rounded-full absolute top-0 left-[50%]"></div>
+        <!-- Tulisan "Touch" di tengah love -->
+        <span id="click-text"
+            class="absolute top-1/4 left-1/2 transform -translate-x-1/4 -translate-y-1/5 text-white text-lg rotate-45 animate-blink"
+            style="font-family: 'Rubik', sans-serif;">Touch</span>
+    </div>
+
+    <!-- Box 1 -->
+    <div id="box" style="font-family: 'Nataly', sans-serif;"
+        class="w-64 bg-white border-2 border-pink-100 rounded-lg shadow-lg flex flex-col items-center p-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 invisible transition-opacity duration-500">
+        <img src="image/stiker1.gif" alt="Gambar" class="w-full rounded-lg">
+        <p class="mt-2 text-center text-lg">Ciee ulang taun nihh</p>
+    </div>
+
+    <!-- Box 2 -->
+    <div id="box-2" style="font-family: 'Nataly', sans-serif;"
+        class="w-64 flex flex-col items-center p-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 invisible transition-opacity duration-500">
+        <p class="mt-2 text-center text-3xl">Selamat</p>
+        <img src="image/18.png" alt="Gambar" class="w-full">
+    </div>
+
+    <!-- Box 3 -->
+    <div id="box-3" style="font-family: 'Nataly', sans-serif;"
+        class="w-64 bg-white border-2 border-pink-100 rounded-lg shadow-lg flex flex-col items-center p-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 invisible transition-opacity duration-500">
+        <img src="image/stiker2.gif" alt="Gambar" class="w-full rounded-lg">
+        <p class="mt-2 text-center text-lg">Semoga yang disemogakan tersemogakan yaa</p>
+    </div>
+
+    <!-- Box 4 -->
+    <div id="box-4" style="font-family: 'Nataly', sans-serif;"
+        class="w-64 bg-white border-2 border-pink-100 rounded-lg shadow-lg flex flex-col items-center p-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 invisible transition-opacity duration-500">
+        <img src="image/stiker3.gif" alt="Gambar" class="w-full rounded-lg">
+        <p class="mt-2 text-center text-lg">Panjang umur, sehat selalu</p>
+    </div>
+
+    <!-- Box 5 -->
+    <div id="box-5" style="font-family: 'Nataly', sans-serif;"
+        class="w-64 bg-white border-2 border-pink-100 rounded-lg shadow-lg flex flex-col items-center p-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 invisible transition-opacity duration-500">
+        <img src="image/stiker4.gif" alt="Gambar" class="w-full rounded-lg">
+        <p class="mt-2 text-center text-lg">Salam dari kefri</p>
+    </div>
+
+    <!-- Box 6 -->
+    <div id="box-6" style="font-family: 'Nataly', sans-serif;"
+        class="w-64 flex flex-col items-center p-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 invisible transition-opacity duration-500">
+        <p id="countdown" class="mt-2 text-center text-pink-300 text-9xl">18</p>
+    </div>
+
+    <!-- Box 7 (Box Maaf) -->
+    <div id="box-7" style="font-family: 'Nataly', sans-serif;"
+        class="w-64 flex flex-col items-center p-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 invisible transition-opacity duration-500">
+        <div id="heart" class="w-24 h-24 bg-pink-300 relative rotate-[-45deg] animate-pulse-custom cursor-pointer">
+            <div class="w-24 h-24 bg-pink-300 rounded-full absolute top-[-50%] left-0"></div>
+            <div class="w-24 h-24 bg-pink-300 rounded-full absolute top-0 left-[50%]"></div>
+            <!-- Tulisan "Touch" di tengah love -->
+            <span id="click-text"
+                class="absolute top-1/4 left-1/2 transform -translate-x-1/4 -translate-y-1/5 text-white text-3xl rotate-45 animate-blink"
+                style="font-family: 'Rubik', sans-serif;">♬</span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <button id="footer"
+        class="absolute bottom-0 text-xl cursor-pointer w-full py-2 bg-pink-300 text-white hover:bg-pink-300 transition invisible opacity-0"></button>
+
+    <audio id="count" src="audio/count.mp3" preload="auto"></audio>
+    <audio id="backsound1" src="audio/backsound1.mp3" preload="auto"></audio>
+    <audio id="backsound3" src="audio/backsound3.mp3" preload="auto"></audio>
+    <audio id="pop1" src="audio/pop1.mp3" preload="auto"></audio>
+    <audio id="pop2" src="audio/pop2.mp3" preload="auto"></audio>
+
+    <script>
+        $(document).ready(function () {
+            let currentStep = 1;
+
+            // Saat love diklik
+            $('#heart').on('click', function () {
+                document.getElementById('pop1').play();
+                document.getElementById('backsound1').play();
+                $(this).fadeOut(500, function () {
+                    $(this).remove();
+                    showBox('#box');
+                    showBtn('#footer');
+                    $('#footer').text('Lanjut');
+                });
+            });
+
+            // Saat footer diklik
+            $('#footer').on('click', function () {
+                $(this).addClass('animate-zoom-in-footer');
+                setTimeout(() => {
+                    $(this).removeClass('animate-zoom-in-footer');
+
+                    if (currentStep === 1) {
+                        document.getElementById('pop2').play();
+                        hideBox('#box');
+                        showBox('#box-2');
+                        $(this).text('Masih Lanjut');
+                        currentStep++;
+                    } else if (currentStep === 2) {
+                        document.getElementById('pop2').play();
+                        hideBox('#box-2');
+                        showBox('#box-3');
+                        $(this).text('Lanjut Lagi');
+                        currentStep++;
+                    } else if (currentStep === 3) {
+                        document.getElementById('pop2').play();
+                        hideBox('#box-3');
+                        showBox('#box-4');
+                        $(this).text('Lanjut Terus');
+                        currentStep++;
+                    } else if (currentStep === 4) {
+                        document.getElementById('pop2').play();
+                        hideBox('#box-4');
+                        showBox('#box-5');
+                        $(this).text('Terakhir');
+                        currentStep++;
+                    } else if (currentStep === 5) {
+                        document.getElementById('pop2').play();
+                        document.getElementById('backsound1').pause();
+                        document.getElementById('count').play();
+                        hideBox('#box-5');
+                        hideBtn('#footer');
+                        showBox('#box-6');
+                        $(this).text('');
+                        currentStep++;
+
+                        // Mulai hitungan mundur
+                        startCountdown();
+                    }
+                }, 300);
+            });
+
+            function showBox(boxId) {
+                $(boxId)
+                    .removeClass('invisible opacity-0')
+                    .addClass('animate-zoom-in opacity-100');
+            }
+
+            function hideBox(boxId) {
+                $(boxId)
+                    .removeClass('opacity-100')
+                    .addClass('opacity-0 invisible');
+            }
+
+            function showBtn(btnId) {
+                $(btnId)
+                    .removeClass('invisible opacity-0')
+            }
+
+            function hideBtn(btnId) {
+                $(btnId)
+                    .removeClass('opacity-100')
+                    .addClass('opacity-0 invisible');
+            }
+
+            // Fungsi hitungan mundur
+            function startCountdown() {
+                let count = 18;
+                const countdownElement = document.getElementById('countdown');
+                const backsound = document.getElementById('backsound3');
+
+                const countdownInterval = setInterval(() => {
+                    countdownElement.textContent = count;
+
+                    // Saat hitungan mencapai 8, mulai memutar backsound dalam keadaan mute
+                    if (count === 8) {
+                        backsound.volume = 0; // Matikan suara
+                        backsound.play();
+                    }
+
+                    // Saat hitungan mencapai 0, aktifkan suara backsound
+                    if (count === 0) {
+                        backsound.volume = 1; // Aktifkan suara penuh
+                    }
+
+                    count--;
+
+                    if (count < 0) {
+                        document.getElementById('count').pause();
+                        clearInterval(countdownInterval);
+                        document.getElementById('pop2').play();
+                        hideBox('#box-6');
+                        showBox('#box-7'); // Tampilkan box maaf
+                    }
+                }, 900); // Setiap 0.9 detik
+            }
+
+        });
+    </script>
+</body>
+
+</html>
